@@ -46,3 +46,18 @@ async def get_tasks():
 
     data = [dict(row) for row in rows]
     return data
+
+@app.get("/taches/{date}")
+async def get_task(date):
+    con = get_connection()
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute(f"""
+        SELECT * 
+        FROM taches 
+        WHERE date_creation = {date};
+    """)
+    rows = cur.fetchall()
+
+    data = [dict(row) for row in rows]
+    return data
