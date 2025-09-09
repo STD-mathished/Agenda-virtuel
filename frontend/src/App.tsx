@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Calendar } from './components/ui/calendar'
+import Task from './components/own/task'
 
 export default function App() {
     const [date, setDate] = useState<Date | undefined>(
@@ -28,15 +29,18 @@ export default function App() {
         </div>
       </div>
 
-      {/* Placeholder */}
+      {/* taches */}
       <div className="
         xl:w-1/2 w-full flex-1
         flex items-center justify-center
         bg-gray-100 xl:min-h-0
+
       ">
-        <div className="text-gray-500 text-xl">
+        {/*<div className="text-gray-500 text-xl">
           Placeholder
-        </div>
+        </div>*/}
+
+        <Task/>
       </div>
     </section>
   )
