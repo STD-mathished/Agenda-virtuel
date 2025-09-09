@@ -1,11 +1,6 @@
 from datetime import datetime, timedelta
 from db import get_connection
 
-# Essaye d'importer get_cursor(con) si tu l'as défini dans db.py
-try:
-    from db import get_cursor  
-except Exception:
-    get_cursor = None  
 
 
 def ensure_foreign_keys(cur):
@@ -126,7 +121,7 @@ def seed_data(cur):
 
 def main():
     con = get_connection()
-    cur = get_cursor() if callable(get_cursor) else con.cursor()
+    cur = con.cursor()
 
     ensure_foreign_keys(cur)
     seed_data(cur)

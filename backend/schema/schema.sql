@@ -29,5 +29,5 @@ INSERT OR IGNORE INTO categories (nom) VALUES
 ('Travail'),
 ('Personnel'),
 ('Courses'),
-('Santé'),
+('Sante'),
 ('Urgent');

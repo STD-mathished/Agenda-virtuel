@@ -5,8 +5,13 @@ def get_cat(cursor):
     res = cursor.execute("SELECT * FROM CATEGORIES;")
     print(res.fetchall())
 
+def get_taches(cursor):
+    res = cursor.execute("SELECT * FROM taches;")
+    print(res.fetchall())
+
 def main():
     cur = get_connection().cursor()
+    get_taches(cur)
     get_cat(cur)
 
 
