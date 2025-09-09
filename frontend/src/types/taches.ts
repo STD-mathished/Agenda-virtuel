@@ -1,7 +1,7 @@
 export type Tache = {
     id: number;
     titre: string;
-    desription: string;
+    description: string;
     date_creation: string;
     date_echeance: string;
     priorite: number;
