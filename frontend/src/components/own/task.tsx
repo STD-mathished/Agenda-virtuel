@@ -1,6 +1,7 @@
 import type { Tache } from "@/types/taches";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import BadgePriorite from "./badge";
 
 export default function Task({ date }: { date: Date }) {
   const [taches, setTaches] = useState<Tache[]>([]);
@@ -20,7 +21,7 @@ export default function Task({ date }: { date: Date }) {
         setTaches(data);
       } catch (error) {
         console.error("Erreur lors du fetch des tâches :", error);
-        setTaches([]); // optionnel : vide la liste en cas d'erreur
+        setTaches([]); 
       }
     };
 
@@ -49,7 +50,7 @@ export default function Task({ date }: { date: Date }) {
               <p className="font-bold">date d'échéance:</p> {tache.date_echeance ?? "Aucun élément trouvé"}
             </div>
             <div className="flex gap-2">
-              <p className="font-bold">priorité:</p> {tache.priorite ?? "Aucun élément trouvé"}
+              <p className="font-bold">priorité:</p> { <BadgePriorite priorite={tache.priorite }/>}
             </div>
             <div className="flex gap-2">
               <p className="font-bold">statut:</p> {tache.est_termine ?? "Aucun élément trouvé"}
