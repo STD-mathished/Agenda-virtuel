@@ -9,10 +9,15 @@ def get_taches(cursor):
     res = cursor.execute("SELECT * FROM taches;")
     print(res.fetchall())
 
+def get_taches_date(cursor):
+    res = cursor.execute("""SELECT DATE_FORMAT(date_creation,'%Y %m %e' ) FROM taches;""")
+    print(res.fetchall())
+
+
 def main():
     cur = get_connection().cursor()
-    get_taches(cur)
-    get_cat(cur)
+    get_taches_date(cur)
+
 
 
 

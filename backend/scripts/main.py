@@ -40,7 +40,8 @@ async def get_tasks():
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute("""
-        SELECT * FROM taches;
+        SELECT id, titre, description, date(date_creation) as date_creation , date(date_echeance) as date_echeance, priorite, est_termine 
+        FROM taches;
     """)
     rows = cur.fetchall()
 
@@ -53,9 +54,24 @@ async def get_task(date):
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute(f"""
-        SELECT * 
+        SELECT id, titre, description, date(date_creation) , date(date_echeance), priorite, est_termine
         FROM taches 
         WHERE date_creation = {date};
+    """)
+    rows = cur.fetchall()
+
+    data = [dict(row) for row in rows]
+    return data
+
+
+#route test pour date 
+@app.get("/taches_date")
+async def get_tasks():
+    con = get_connection()
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("""
+        SELECT date(date_creation) as date from taches;
     """)
     rows = cur.fetchall()
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Calendar } from './components/ui/calendar'
 import Task from './components/own/task'
@@ -7,6 +7,11 @@ export default function App() {
     const [date, setDate] = useState<Date | undefined>(
     new Date(2025, 8, 1)
   )
+
+  //Afficher la date à chque fois qu'elle change -- debug
+  useEffect(()=>{
+    alert(date);
+  },[date])
 
   return (
     <section className="min-h-screen flex flex-col xl:flex-row">
