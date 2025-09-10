@@ -3,12 +3,14 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import './index.css'
 import App from './App.tsx';
 import Taches from './pages/taches.tsx';
+import AjouterTache from './pages/ajouterTache.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<App/>}/>
       <Route path='/taches' element={<Taches/>}/>
+      <Route path='/ajouter' element={<AjouterTache/>}/>
     </Routes>
   </BrowserRouter>,
 )

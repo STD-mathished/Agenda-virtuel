@@ -2,6 +2,9 @@ import type { Tache } from "@/types/taches";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import BadgePriorite from "./badge";
+import BadgeTermine from "./badgeTermine";
+import AjoutTache from "./ajoutTache";
+import { Link } from "react-router";
 
 export default function Task({ date }: { date: Date }) {
   const [taches, setTaches] = useState<Tache[]>([]);
@@ -33,10 +36,10 @@ export default function Task({ date }: { date: Date }) {
   return (
     <div className="w-full h-screen overflow-y-auto">
       {taches.length === 0 ? (
-        <p>Aucune tâche</p>
+        <AjoutTache/>
       ) : (
         taches.map((tache, index) => (
-          <div key={tache.id ?? index} className="p-3 rounded bg-white min-w-xl border-b-2">
+          <div key={tache.id ?? index} className="p-3 rounded bg-white min-w-xl border-b-2 flex flex-col">
             <div className="flex gap-2">
               <p className="font-bold">titre:</p> {tache.titre ?? "Aucun élément trouvé"}
             </div>
@@ -52,8 +55,18 @@ export default function Task({ date }: { date: Date }) {
             <div className="flex gap-2 items-center ">
               <p className="font-bold">priorité:</p> { <BadgePriorite priorite={tache.priorite }/>}
             </div>
-            <div className="flex gap-2">
-              <p className="font-bold">statut:</p> {tache.est_termine ?? "Aucun élément trouvé"}
+            <div className="flex gap-2 items-center mt-2">
+              <p className="font-bold">statut:</p> {<BadgeTermine statut={tache.est_termine}/>}
+            </div>
+            <div 
+                className="self-end hover:scale-105 transition duration-300"
+            >
+                <Link 
+                    to={"/editer"} 
+                    className="pl-3 pr-3 pt-2 pb-2 bg-yellow-400 rounded"
+                >
+                    Editer
+                </Link>
             </div>
           </div>
         ))
