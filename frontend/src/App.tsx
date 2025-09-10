@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import { format } from 'date-fns';
 import { Calendar } from './components/ui/calendar'
 import Task from './components/own/task'
 
 export default function App() {
     const [date, setDate] = useState<Date | undefined>(new Date(2025, 8, 1))
-    const [formatedDate, setFormatedDate] = useState<string>()
-
-
-  //Afficher la date à chque fois qu'elle change -- debug
-  useEffect(()=>{
-    if (date instanceof Date){
-      const new_date = format(date, 'yyyy-MM-dd');
-      setFormatedDate(new_date)
-    }
-    
-  },[date])
+  
 
   return (
     <section className="min-h-screen flex flex-col xl:flex-row">
@@ -49,8 +38,9 @@ export default function App() {
         {/*<div className="text-gray-500 text-xl">
           Placeholder
         </div>*/}
+        
+        {date && <Task date={date} />}
 
-        <Task/>
       </div>
     </section>
   )
