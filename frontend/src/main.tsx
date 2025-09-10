@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import './index.css'
 import App from './App.tsx';
 import Taches from './pages/taches.tsx';
-import AjouterTache from './pages/ajouterTache.tsx';
 import NotFound from './pages/notFound.tsx';
+import AjouterTache from './pages/ajouterTache.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
