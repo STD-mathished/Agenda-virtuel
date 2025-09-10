@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import date as dt_date
 from db import get_connection
 import sqlite3
 
@@ -48,20 +49,21 @@ async def get_tasks():
     data = [dict(row) for row in rows]
     return data
 
-@app.get("/taches/{date}")
-async def get_task(date):
+@app.get("/taches/{jour}")
+async def get_task(jour: dt_date):
     con = get_connection()
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute(f"""
-        SELECT id, titre, description, date(date_creation) , date(date_echeance), priorite, est_termine
+    cur.execute("""
+        SELECT id, titre, description,
+               date(date_creation)  AS date_creation,
+               date(date_echeance)  AS date_echeance,
+               priorite, est_termine
         FROM taches 
-        WHERE date_creation = {date};
-    """)
+        WHERE date(date_creation) = ?
+    """, (jour.isoformat(),))  # <== paramètre, pas d'injection, bien quoté
     rows = cur.fetchall()
-
-    data = [dict(row) for row in rows]
-    return data
+    return [dict(row) for row in rows]
 
 
 #route test pour date 
