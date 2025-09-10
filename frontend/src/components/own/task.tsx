@@ -36,7 +36,7 @@ export default function Task({ date }: { date: Date }) {
         <p>Aucune tâche</p>
       ) : (
         taches.map((tache, index) => (
-          <div key={tache.id ?? index} className="p-3 rounded bg-white min-w-xl">
+          <div key={tache.id ?? index} className="p-3 rounded bg-white min-w-xl border-b-2">
             <div className="flex gap-2">
               <p className="font-bold">titre:</p> {tache.titre ?? "Aucun élément trouvé"}
             </div>
@@ -49,7 +49,7 @@ export default function Task({ date }: { date: Date }) {
             <div className="flex gap-2">
               <p className="font-bold">date d'échéance:</p> {tache.date_echeance ?? "Aucun élément trouvé"}
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center ">
               <p className="font-bold">priorité:</p> { <BadgePriorite priorite={tache.priorite }/>}
             </div>
             <div className="flex gap-2">
