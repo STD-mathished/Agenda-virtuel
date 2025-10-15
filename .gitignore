@@ -33,3 +33,5 @@ ENV/
 *.pyc
 __pycache__/
 *.egg-info/
+
+.env 
