@@ -6,7 +6,7 @@ from time import sleep
 def get_connection():
     obj_cur_path = Path('.')
     cur_path = obj_cur_path.resolve()
-    app_file = cur_path/"backend/app.bd"
+    app_file = cur_path/"../app.bd"
     con = sqlite3.connect(app_file)
     return con
 
@@ -17,10 +17,10 @@ def main():
     obj_cur_path = Path('.')
     cur_path = obj_cur_path.resolve()
 
+    print(f"le chemin actuel est : {cur_path}")
     #afficher le contenu du path
-    #for item in cur_path.iterdir(): print(item)    -- debug
-    schema_file = cur_path/"backend/schema/schema.sql"
-    app_file = cur_path/"backend/app.bd"
+    schema_file = cur_path/"../schema/schema.sql"
+    app_file = cur_path/"../app.bd"
 
     #creer la bd
     if not app_file.is_file():
@@ -35,7 +35,7 @@ def main():
             schema_str = file.read()
 
         con = get_connection()
-        cur = get_cursor()
+        cur = con.cursor()
         
         cur.execute("PRAGMA foreign_keys = ON;")
         cur.executescript(schema_str)
