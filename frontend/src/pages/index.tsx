@@ -6,7 +6,7 @@ export default function Index() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800">
       <header className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between">
         <div className="text-xl font-semibold tracking-tight">
-          Agenda<span className="text-blue-600">.</span>
+          Agendai<span className="text-blue-600">.</span>
         </div>
         <a
           href="/app"
