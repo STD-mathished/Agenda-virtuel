@@ -1,52 +1,46 @@
-import os
-import sqlite3
+import psycopg2
 from pathlib import Path
-from time import sleep
+from dotenv import load_dotenv
+import os
 
-def get_connection():
-    obj_cur_path = Path('.')
-    cur_path = obj_cur_path.resolve()
-    app_file = cur_path/"backend/app.bd"
-    con = sqlite3.connect(app_file)
-    return con
+load_dotenv()
+
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = os.getenv("DB_PORT")
+DB_HOST = os.getenv("DB_HOST")
+
+
 
 
 
 def main():
-    #recuperer la racine
-    obj_cur_path = Path('.')
-    cur_path = obj_cur_path.resolve()
+    try:
+        con = psycopg2.connect(dbname=DB_NAME, user=DB_USER ,password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+        cursor = con.cursor()
 
-    #afficher le contenu du path
-    #for item in cur_path.iterdir(): print(item)    -- debug
-    schema_file = cur_path/"backend/schema/schema.sql"
-    app_file = cur_path/"backend/app.bd"
+        obj_cur_path = Path('.')
+        cur_path = obj_cur_path.resolve()
 
-    #creer la bd
-    if not app_file.is_file():
-        #affichage utilisateur
-        print("Creation de la base de donnees")
-        sleep(2)
-        print("...")
+        #afficher le contenu du path
+        schema_file = cur_path/"backend/schema/schema.sql"
+  
 
-        #creation de la base de données
-        #-------lire le fichier-------
         with open(schema_file, "r") as file:
             schema_str = file.read()
+    
+        cursor.execute(schema_str)
 
-        con = get_connection()
-        cur = get_cursor()
-        
-        cur.execute("PRAGMA foreign_keys = ON;")
-        cur.executescript(schema_str)
-
-        #------Commit de la transaction------
         con.commit()
+        print("✅ Base de données PostgreSQL initialisée avec succès.")
 
-    else:
-        print("Un fichier n'existe pas")
-
-
+    except psycopg2.Error as e:
+        print(f"Erreur de base de données : {e}")
+        
+    finally:
+        if con:
+            con.close()
 
 if __name__ == "__main__":
     main()
