@@ -1,4 +1,4 @@
-from db import get_connection
+from backend.scripts.db_setup import get_connection
 
 
 def get_cat(cursor):
