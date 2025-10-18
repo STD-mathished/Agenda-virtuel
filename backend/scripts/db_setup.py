@@ -3,6 +3,9 @@ from pathlib import Path
 from constants import *
 
 
+
+
+
 def main():
     try:
         con = psycopg2.connect(dbname=DB_NAME, user=DB_USER ,password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
@@ -11,18 +14,19 @@ def main():
         obj_cur_path = Path('.')
         cur_path = obj_cur_path.resolve()
 
-        insertion_file = cur_path/"../data/insertion.sql"
-        
-        with open(insertion_file, "r") as file:
-            insertion_str = file.read()
+        schema_file = cur_path/"backend/schema/schema.sql"
+  
 
-        cursor.execute(insertion_str)
+        with open(schema_file, "r") as file:
+            schema_str = file.read()
+    
+        cursor.execute(schema_str)
+
         con.commit()
-        print("Données correctement insérées dans la base de données")
-
+        print("✅ Base de données PostgreSQL initialisée avec succès.")
 
     except psycopg2.Error as e:
-        print(f"Erreur lors de l'insertion en base de données : {e}")
+        print(f"Erreur de base de données : {e}")
         
     finally:
         if con:

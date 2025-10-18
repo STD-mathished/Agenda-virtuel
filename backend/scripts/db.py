@@ -1,52 +1,18 @@
-import os
-import sqlite3
-from pathlib import Path
-from time import sleep
-
-def get_connection():
-    obj_cur_path = Path('.')
-    cur_path = obj_cur_path.resolve()
-    app_file = cur_path/"../app.bd"
-    con = sqlite3.connect(app_file)
-    return con
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
+from .constants import *
 
 
+DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-def main():
-    #recuperer la racine
-    obj_cur_path = Path('.')
-    cur_path = obj_cur_path.resolve()
+# SQLAlchemy
+engine = create_engine(DATABASE_URL, future=True)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
+Base = declarative_base()
 
-    print(f"le chemin actuel est : {cur_path}")
-    #afficher le contenu du path
-    schema_file = cur_path/"../schema/schema.sql"
-    app_file = cur_path/"../app.bd"
-
-    #creer la bd
-    if not app_file.is_file():
-        #affichage utilisateur
-        print("Creation de la base de donnees")
-        sleep(2)
-        print("...")
-
-        #creation de la base de données
-        #-------lire le fichier-------
-        with open(schema_file, "r") as file:
-            schema_str = file.read()
-
-        con = get_connection()
-        cur = con.cursor()
-        
-        cur.execute("PRAGMA foreign_keys = ON;")
-        cur.executescript(schema_str)
-
-        #------Commit de la transaction------
-        con.commit()
-
-    else:
-        print("Un fichier n'existe pas")
-
-
-
-if __name__ == "__main__":
-    main()
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
