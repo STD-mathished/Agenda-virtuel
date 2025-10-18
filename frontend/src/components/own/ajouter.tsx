@@ -1,82 +1,79 @@
 export default function AjouterForm() {
     return (
-        <form 
-            className="mt-8 border-black border w-[60vw] h-[80vh] p-4  flex flex-col gap-10"
-        >
-            {/* Titre */}
-            <div 
-                className="flex gap-2 flex-col "
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+            <form 
+                className="w-full max-w-2xl bg-white shadow-lg rounded-2xl p-8 flex flex-col gap-8 border border-gray-200"
             >
-                <p
-                    className="text-xl font-bold"
-                >
-                    Titre:
-                </p>
-                <input type="text" 
-                    className="flex-3/4 font-semibold border border-black rounded outline-0 pl-2 hover:border-gray-400 min-h-[5vh]"
-                />
-            </div>
+                <h2 className="text-3xl font-bold text-center text-gray-800">
+                    Ajouter une nouvelle tâche
+                </h2>
 
-            {/* Desc */}
-            <div 
-                className="flex flex-col gap-2"
-            >
-                <p
-                    className="text-xl font-bold"
-                >
-                    Description:
-                </p>
-                <textarea  
-                    className="flex-3/4 pl-2 border border-black rounded outline-0  hover:border-gray-400 min-h-[20vh]"
-                />
-            </div>
+                {/* Titre */}
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="titre" className="text-lg font-semibold text-gray-700">
+                        Titre
+                    </label>
+                    <input 
+                        id="titre"
+                        type="text"
+                        placeholder="Ex : Faire les courses"
+                        className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    />
+                </div>
 
-            {/* priorité */}
-            <div 
-                className="flex gap-2"
-            >
-                <p
-                    className="text-xl font-bold"
-                >
-                    Niveau de priorité:
-                </p>
-                <select  
-                    className="flex-1/2 pl-2 border border-black rounded outline-0  hover:border-gray-400"
-                >
-                    <option value="dog">----Choisir une option----</option>
-                    <option value="cat">Faible</option>
-                    <option value="dog">Modéré</option>
-                    <option value="cat">Urgent</option>
-                </select>
-            </div>
+                {/* Description */}
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="description" className="text-lg font-semibold text-gray-700">
+                        Description
+                    </label>
+                    <textarea
+                        id="description"
+                        placeholder="Ajoute une description de ta tâche..."
+                        className="border border-gray-300 rounded-lg px-3 py-2 min-h-[120px] font-medium outline-none resize-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    />
+                </div>
 
-            {/* statut */}
-            <div 
-                className="flex gap-2"
-            >
-                <p
-                    className="text-xl font-bold"
-                >
-                    Niveau de priorité:
-                </p>
-                <select  
-                    className="flex-1/2 pl-2 border border-black rounded outline-0  hover:border-gray-400"
-                >
-                    <option value="dog">----Choisir une option----</option>
-                    <option value="dog">En cours</option>
-                    <option value="dog">Terminé</option>
-                </select>
-            </div>
+                {/* Priorité */}
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="priorite" className="text-lg font-semibold text-gray-700">
+                        Niveau de priorité
+                    </label>
+                    <select
+                        id="priorite"
+                        className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    >
+                        <option value="">-- Choisir une option --</option>
+                        <option value="faible">Faible</option>
+                        <option value="moderee">Modérée</option>
+                        <option value="urgente">Urgente</option>
+                    </select>
+                </div>
 
-            <div 
-                className="self-end"
-            >
-                <button
-                    className="p-2 rounded bg-blue-500 text-white font-bold transition duration-200 ease-in-out hover:scale-105 hover:bg-blue-700"
-                >
-                    Envoyer
-                </button>
-            </div>
-        </form>
+                {/* Statut */}
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="statut" className="text-lg font-semibold text-gray-700">
+                        Statut de la tâche
+                    </label>
+                    <select
+                        id="statut"
+                        className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    >
+                        <option value="">-- Choisir une option --</option>
+                        <option value="en_cours">En cours</option>
+                        <option value="terminee">Terminée</option>
+                    </select>
+                </div>
+
+                {/* Bouton */}
+                <div className="flex justify-end">
+                    <button
+                        type="submit"
+                        className="px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold transition-all duration-200 hover:bg-blue-700 hover:scale-105 shadow-md"
+                    >
+                        Envoyer
+                    </button>
+                </div>
+            </form>
+        </div>
     )
 }

@@ -4,7 +4,7 @@ import { Calendar } from './components/ui/calendar'
 import Task from './components/own/task'
 
 export default function App() {
-    const [date, setDate] = useState<Date | undefined>(new Date(2025, 8, 1))
+    const [date, setDate] = useState<Date | undefined>(new Date())
   
 
   return (
@@ -31,13 +31,12 @@ export default function App() {
       {/* taches */}
       <div className="
         xl:w-1/2 w-full flex-1
-        flex items-center justify-center
-        bg-gray-100 xl:min-h-0
+        flex 
+        items-start justify-start   
+        xl:items-center xl:justify-center 
+        bg-gray-200 xl:min-h-0
 
       ">
-        {/*<div className="text-gray-500 text-xl">
-          Placeholder
-        </div>*/}
         
         {date && <Task date={date} />}
 

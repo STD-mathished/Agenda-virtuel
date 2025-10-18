@@ -34,12 +34,12 @@ export default function Task({ date }: { date: Date }) {
   }, [date]);
 
   return (
-    <div className="w-full h-screen overflow-y-auto">
+    <div className="w-full h-screen overflow-y-auto ">
       {taches.length === 0 ? (
         <AjoutTache/>
       ) : (
         taches.map((tache, index) => (
-          <div key={tache.id ?? index} className="p-3 rounded bg-white min-w-xl border-b-2 flex flex-col">
+          <div key={tache.id ?? index} className="p-3 rounded bg-gray-200 min-w-xl border-b-2 border-white flex flex-col ">
             <div className="flex gap-2">
               <p className="font-bold">titre:</p> {tache.titre ?? "Aucun élément trouvé"}
             </div>
