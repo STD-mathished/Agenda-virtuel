@@ -1,6 +1,6 @@
 # Agendai
 
-Agenda-virtuel est un projet d'application web full-stack d'agenda personnel. Il est conçu pour vous aider à organiser vos tâches.
+Agendai est un projet d'application web full-stack d'agenda personnel. Il est conçu pour vous aider à organiser vos tâches.
 
 Le projet est divisé en deux parties principales :
 * **`/frontend`** : Une application client construite avec **React** (utilisant Vite).
