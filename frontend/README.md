@@ -1,69 +1,75 @@
-# React + TypeScript + Vite
+# Agendai
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Agenda-virtuel est un projet d'application web full-stack d'agenda personnel. Il est conçu pour vous aider à organiser vos tâches.
 
-Currently, two official plugins are available:
+Le projet est divisé en deux parties principales :
+* **`/frontend`** : Une application client construite avec **React** (utilisant Vite).
+* **`/backend`** : Une API RESTful construite avec **FastAPI** (Python) et **SQLAlchemy** pour la gestion de la base de données basée sur postgreeSQL.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Fonctionnalités
 
-## Expanding the ESLint configuration
+* Lister les catégories de tâches.
+* Lister toutes les tâches.
+* Filtrer et afficher les tâches pour un jour spécifique.
+* (Fonctionnalités à venir : Créer, mettre à jour et supprimer des tâches).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technologies utilisées
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **Frontend** :
+    * [React]
+    * [Vite]
+* **Backend** :
+    * [FastAPI]
+    * [SQLAlchemy] (pour l'ORM)
+    * [PostgresSQL]
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Installation et Lancement
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Pour lancer l'application en mode développement local il faut :
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1. Prérequis
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* [Node.js](https://nodejs.org/) (v18+)
+* [Python](https://www.python.org/) (v3.10+ recommandée)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 2. Configuration du Backend (API)
+
+L'API doit être lancée pour que le frontend puisse récupérer des données.
+
+1.  **Ouvrez un premier terminal.**
+2.  Placez-vous dans le dossier `backend` :
+    ```bash
+    cd backend
+    ```
+3.  (Optionnel mais recommandé) Créez un environnement virtuel :
+    ```bash
+    python -m venv venv
+    source venv/bin/activate 
+    ```
+4.  Installez les dépendances Python :
+    ```bash
+    pip install -r requirements.txt
+    ```
+5.  Lancez le serveur FastAPI (Uvicorn) :
+    *(**Important** : Lancez cette commande depuis la racine du dossier `backend`)*
+    ```bash
+    uvicorn scripts.main:app --reload
+    ```
+    L'API est maintenant accessible à l'adresse `http://127.0.0.1:8000`.
+
+### 3. Configuration du Frontend (Application)
+
+1.  **Ouvrez un second terminal.**
+2.  Placez-vous dans le dossier `frontend` :
+    ```bash
+    cd frontend
+    ```
+3.  Installez les dépendances Node.js :
+    ```bash
+    npm install
+    ```
+4.  Lancez le serveur de développement Vite :
+    ```bash
+    npm run dev
+    ```
+    Votre application est maintenant accessible à l'adresse `http://localhost:5173`.
