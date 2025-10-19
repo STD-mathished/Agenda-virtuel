@@ -1,0 +1,1 @@
+export type priorite = "Faible" | "Modérée" | "Urgente"

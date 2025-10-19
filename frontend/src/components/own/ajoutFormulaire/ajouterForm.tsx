@@ -1,4 +1,12 @@
+import { useState } from "react"
+import { useDateStore } from "@/hooks/dataStore"
+
 export default function AjouterForm() {
+    const date = useDateStore((s) => s.date);
+    const [titre, setTitre] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [priorite, setPriorite] = useState<string>();
+    const [statut, setStatut] = useState<string>("");
     return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
             <form 
@@ -17,6 +25,8 @@ export default function AjouterForm() {
                         id="titre"
                         type="text"
                         placeholder="Ex : Faire les courses"
+                        onChange={(e) => {setTitre(e.target.value)}}
+                        value={titre}
                         className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                     />
                 </div>
@@ -29,6 +39,8 @@ export default function AjouterForm() {
                     <textarea
                         id="description"
                         placeholder="Ajoute une description de ta tâche..."
+                        onChange={(e) => {setDescription(e.target.value)}}
+                        value={description}
                         className="border border-gray-300 rounded-lg px-3 py-2 min-h-[120px] font-medium outline-none resize-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                     />
                 </div>
@@ -41,8 +53,10 @@ export default function AjouterForm() {
                     <select
                         id="priorite"
                         className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                        onChange={(e) => {setPriorite(e.target.value)}}
+                        value={priorite}
                     >
-                        <option value="">-- Choisir une option --</option>
+                       {/*<option value="">-- Choisir une option --</option>*/}
                         <option value="faible">Faible</option>
                         <option value="moderee">Modérée</option>
                         <option value="urgente">Urgente</option>
@@ -57,8 +71,10 @@ export default function AjouterForm() {
                     <select
                         id="statut"
                         className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                        onChange={(e) => {setStatut(e.target.value)}}
+                        value={statut}
                     >
-                        <option value="">-- Choisir une option --</option>
+                        {/*<option value="">-- Choisir une option --</option>*/}
                         <option value="en_cours">En cours</option>
                         <option value="terminee">Terminée</option>
                     </select>
