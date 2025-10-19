@@ -51,9 +51,9 @@ L'API doit être lancée pour que le frontend puisse récupérer des données.
     pip install -r requirements.txt
     ```
 5.  Lancez le serveur FastAPI (Uvicorn) :
-    *(**Important** : Lancez cette commande depuis la racine du dossier `backend`)*
+    *(**Important** : Lancez cette commande depuis la racine du dossier `agenda-virtuel`)*
     ```bash
-    uvicorn scripts.main:app --reload
+    uvicorn backend.scripts.main:app --reload
     ```
     L'API est maintenant accessible à l'adresse `http://127.0.0.1:8000`.
 
