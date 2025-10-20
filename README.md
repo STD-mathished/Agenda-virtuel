@@ -68,8 +68,18 @@ L'API doit être lancée pour que le frontend puisse récupérer des données.
     ```bash
     npm install
     ```
+4. Initialiser le .env à la racine :
+    ```bash
+    DB_NAME=xxx
+    DB_USER=xxxxx
+    DB_PASSWORD=xxxx
+    DB_PORT=xxxx
+    DB_HOST=xxxxxxx
+    ```
 4.  Lancez le serveur de développement Vite :
     ```bash
     npm run dev
     ```
     Votre application est maintenant accessible à l'adresse `http://localhost:5173`.
+
+

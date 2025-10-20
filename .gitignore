@@ -37,4 +37,8 @@ ENV/
 # ... autres patterns pour Python
 *.pyc
 __pycache__/
+backend/__pycache__
+backend/scripts/__pycache__
+backend/models/__pycache__
+backend/basemodels/__pycache__
 *.egg-info/
