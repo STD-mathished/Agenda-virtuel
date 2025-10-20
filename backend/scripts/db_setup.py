@@ -1,6 +1,6 @@
 import psycopg2
 from pathlib import Path
-from constants import *
+from .constants import *
 
 
 

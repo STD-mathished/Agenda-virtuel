@@ -1,0 +1,1 @@
+export type statut = "En cours" | "Terminée"

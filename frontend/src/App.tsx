@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import './App.css'
-import { Calendar } from './components/ui/calendar'
-import Task from './components/own/task'
+import './App.css';
+import { Calendar } from './components/ui/calendar';
+import Task from './components/own/task';
+import { useDateStore } from './hooks/dataStore';
 
 export default function App() {
-    const [date, setDate] = useState<Date | undefined>(new Date(2025, 8, 1))
-  
+  const date = useDateStore((s) => s.date);
+  const setDate = useDateStore((s) => s.setDate);
 
   return (
     <section className="min-h-screen flex flex-col xl:flex-row">
@@ -16,32 +16,28 @@ export default function App() {
         border-gray-200
         xl:border-r border-b xl:border-b-0
         overflow-auto xl:min-h-0
-      ">        
+      ">
         <div className="h-full">
-          <Calendar 
+          <Calendar
             mode="single"
-            defaultMonth={date}
             numberOfMonths={1}
-            selected={date}
-            onSelect={setDate}
-            className="w-full" />
+            selected={date ?? undefined}
+            defaultMonth={date ?? new Date()}
+            onSelect={(d) => setDate(d ?? null)}
+            className="w-full"
+          />
         </div>
       </div>
 
-      {/* taches */}
+      {/* Tâches */}
       <div className="
         xl:w-1/2 w-full flex-1
-        flex items-center justify-center
-        bg-gray-100 xl:min-h-0
-
+        flex items-start justify-start
+        xl:items-center xl:justify-center
+        bg-gray-200 xl:min-h-0
       ">
-        {/*<div className="text-gray-500 text-xl">
-          Placeholder
-        </div>*/}
-        
         {date && <Task date={date} />}
-
       </div>
     </section>
-  )
+  );
 }

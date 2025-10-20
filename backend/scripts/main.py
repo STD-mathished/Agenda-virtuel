@@ -1,13 +1,16 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.orm import Session
-from sqlalchemy import func, Date, cast
+from sqlalchemy import Date, cast
 from datetime import date as dt_date
 from typing import List
 
 from backend.basemodels.category import CategorySchema
 from backend.basemodels.task import TaskSchema
+
+from backend.models.taskCreate import TaskCreate
+from backend.models.taskOut import TaskOut
 
 from backend.scripts.db import get_db
 from backend.models.category import Category
@@ -39,3 +42,18 @@ async def get_task_by_date(jour: dt_date, db: Session = Depends(get_db)):
         .all()
     )
     return tasks
+
+@app.post("/taches", response_model=str, status_code=status.HTTP_201_CREATED)
+def create_task(payload: TaskCreate, db: Session = Depends(get_db)):
+    task = Task(**payload.model_dump())
+    db.add(task)
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Données invalides (titre requis, priorite 1..3, etc.).",
+        )
+    db.refresh(task)
+    return "tout s'est bien déroulé"
