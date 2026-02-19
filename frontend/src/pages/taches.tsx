@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import type { Tache } from "../types/taches"
+import { API_BASE } from "@/lib/api";
 
 export default function Taches() {
     const [taches, setTaches] = useState<Tache[]>([])
 
     useEffect(()=> {
         const fetchTask = async () => {
-            const url = "http://127.0.0.1:8000/taches"
+            const url = `${API_BASE}/taches`
             const result = await fetch(url)
 
             if(!result.ok) {

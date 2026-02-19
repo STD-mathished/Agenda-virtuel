@@ -43,7 +43,7 @@ async def get_task_by_date(jour: dt_date, db: Session = Depends(get_db)):
     )
     return tasks
 
-@app.post("/taches", response_model=str, status_code=status.HTTP_201_CREATED)
+@app.post("/taches", response_model=TaskOut, status_code=status.HTTP_201_CREATED)
 def create_task(payload: TaskCreate, db: Session = Depends(get_db)):
     task = Task(**payload.model_dump())
     db.add(task)
@@ -53,7 +53,7 @@ def create_task(payload: TaskCreate, db: Session = Depends(get_db)):
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Données invalides (titre requis, priorite 1..3, etc.).",
+            detail="Données invalides",
         )
     db.refresh(task)
-    return "tout s'est bien déroulé"
+    return TaskOut.model_validate(task)

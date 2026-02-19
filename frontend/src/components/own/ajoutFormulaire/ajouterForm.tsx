@@ -6,7 +6,7 @@ import type { statut } from "@/types/statut";
 
 
 const isPriorite = (v: string): v is priorite =>
-  v === "faible" || v === "moderee" || v === "urgente";
+  v === "Faible" || v === "Modérée" || v === "Urgente";
 
 const isStatut = (v: string): v is statut =>
   v === "en_cours" || v === "terminee";
@@ -88,7 +88,7 @@ export default function AjouterForm() {
             value={prio}
             onChange={(e) => {
               const v = e.target.value;
-              if (isPriorite(v)) setPrio(v); // ✅ typage sûr
+              if (isPriorite(v)) setPrio(v); 
             }}
             className="border border-gray-300 rounded-lg px-3 py-2 font-medium outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           >

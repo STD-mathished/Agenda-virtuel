@@ -1,10 +1,7 @@
 import type { ApiTaskCreate, ApiTask, SendFormArgs} from "@/types/sendForm"
 import { convertPriorite, convertStatut } from "./convertFunction";
+import { API_BASE } from "@/lib/api";
 
-
-
-const API_BASE =
-  "http://localhost:8000"; // utiliser un .env
 
 function toIsoOrNull(d: Date | string | null | undefined): string | null {
   if (d == null) return null; 
