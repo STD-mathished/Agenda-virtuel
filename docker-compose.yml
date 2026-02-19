@@ -1,12 +1,45 @@
 services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - DB_NAME=agenda_db
+      - DB_USER=user_agenda
+      - DB_PASSWORD=password_agenda
+      - DB_PORT=5432
+      - DB_HOST=db
+      - DATABASE_URL=postgresql+psycopg2://user_agenda:password_agenda@db:5432/agenda_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+    environment:
+      - DATABASE_URL=postgresql://user_agenda:password_agenda@db:5432/agenda_db
+    depends_on:
+      - db
+
   frontend:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/src       
+      - ./frontend:/src
       - /src/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
