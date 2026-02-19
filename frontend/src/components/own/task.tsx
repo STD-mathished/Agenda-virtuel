@@ -5,6 +5,7 @@ import BadgePriorite from "./badge";
 import BadgeTermine from "./badgeTermine";
 import AjoutTache from "./ajoutTache";
 import { Link } from "react-router";
+import { API_BASE } from "@/lib/api";
 
 export default function Task({ date }: { date: Date }) {
   const [taches, setTaches] = useState<Tache[]>([]);
@@ -13,7 +14,7 @@ export default function Task({ date }: { date: Date }) {
     const fetchTask = async () => {
       try {
         const formattedDate = format(date, "yyyy-MM-dd");
-        const url = `http://127.0.0.1:8000/taches/${formattedDate}`;
+        const url = `${API_BASE}/taches/${formattedDate}`;
         const result = await fetch(url);
 
         if (!result.ok) {
