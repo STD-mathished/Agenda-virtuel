@@ -1,9 +1,9 @@
 import type { Tache } from "@/types/taches";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import BadgePriorite from "./badge";
-import BadgeTermine from "./badgeTermine";
-import AjoutTache from "./ajoutTache";
+import BadgePriorite from "./ui/badge";
+import BadgeTermine from "./ui/badgeTermine";
+import AjoutTache from "./ui/ajoutTache";
 import { Link } from "react-router";
 import { API_BASE } from "@/lib/api";
 

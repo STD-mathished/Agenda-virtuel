@@ -40,7 +40,7 @@ export default function AjouterForm() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="flex justify-center items-centerfrom-gray-50 to-gray-100">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-2xl bg-white shadow-lg rounded-2xl p-8 flex flex-col gap-8 border border-gray-200"

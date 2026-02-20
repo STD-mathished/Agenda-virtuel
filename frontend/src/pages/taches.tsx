@@ -21,7 +21,7 @@ export default function Taches() {
         fetchTask()
     },[]);
     return (
-        <section className="w-full min-h-[100vh] flex flex-col items-center justify-center gap-10 bg-gradient-to-r from-blue-500 to-purple-200 pt-10 pb-10">
+        <section className="w-full min-h-screen flex flex-col items-center justify-center gap-10 bg-linear-to-r from-blue-500 to-purple-200 pt-10 pb-10">
             {taches.length === 0 ?(
                 <p>Aucune taches</p>
             ) : (
