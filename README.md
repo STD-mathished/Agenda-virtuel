@@ -4,7 +4,7 @@ Agendai est un projet d'application web full-stack d'agenda personnel. Il est co
 
 Le projet est divisé en deux parties principales :
 * **`/frontend`** : Une application client construite avec **React** (utilisant Vite).
-* **`/backend`** : Une API RESTful construite avec **FastAPI** (Python) et **SQLAlchemy** pour la gestion de la base de données basée sur postgreeSQL.
+* **`/backend`** : Une API RESTful construite avec **FastAPI** (Python) et **SQLAlchemy** pour la gestion de la base de données basée sur postgreSQL.
 
 ## Fonctionnalités
 
@@ -25,61 +25,31 @@ Le projet est divisé en deux parties principales :
 
 ## Installation et Lancement
 
-Pour lancer l'application en mode développement local il faut :
+Le projet est entièrement conteneurisé avec Docker pour simplifier le lancement en local.
 
 ### 1. Prérequis
 
-* [Node.js](https://nodejs.org/) (v18+)
-* [Python](https://www.python.org/) (v3.10+ recommandée)
+* [Docker](https://www.docker.com/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
-### 2. Configuration du Backend (API)
+### 2. Lancement
 
-L'API doit être lancée pour que le frontend puisse récupérer des données.
-
-1.  **Ouvrez un premier terminal.**
-2.  Placez-vous dans le dossier `backend` :
-    ```bash
-    cd backend
-    ```
-3.  (Optionnel mais recommandé) Créez un environnement virtuel :
-    ```bash
-    python -m venv venv
-    source venv/bin/activate 
-    ```
-4.  Installez les dépendances Python :
-    ```bash
-    pip install -r requirements.txt
-    ```
-5.  Lancez le serveur FastAPI (Uvicorn) :
-    *(**Important** : Lancez cette commande depuis la racine du dossier `agenda-virtuel`)*
-    ```bash
-    uvicorn backend.scripts.main:app --reload
-    ```
-    L'API est maintenant accessible à l'adresse `http://127.0.0.1:8000`.
-
-### 3. Configuration du Frontend (Application)
-
-1.  **Ouvrez un second terminal.**
-2.  Placez-vous dans le dossier `frontend` :
-    ```bash
-    cd frontend
-    ```
-3.  Installez les dépendances Node.js :
-    ```bash
-    npm install
-    ```
-4. Initialiser le .env à la racine :
+1.  Créez un fichier `.env` à la racine du projet avec les variables d'environnement nécessaires :
     ```bash
     DB_NAME=xxx
     DB_USER=xxxxx
     DB_PASSWORD=xxxx
     DB_PORT=xxxx
-    DB_HOST=xxxxxxx
+    DB_HOST=db
     ```
-4.  Lancez le serveur de développement Vite :
+    *(Note : `DB_HOST` doit correspondre au nom du service de base de données dans votre `docker-compose.yml`, généralement `db` ou `postgres`)*
+
+2.  Lancez les conteneurs depuis la racine du projet :
     ```bash
-    npm run dev
+    docker-compose up --build
     ```
-    Votre application est maintenant accessible à l'adresse `http://localhost:5173`.
 
-
+    Une fois les conteneurs démarrés, l'application est accessible aux adresses suivantes :
+    *   **Frontend** : `http://localhost:5173`
+    *   **Backend API** : `http://localhost:8000`
+    *   **Documentation API** : `http://localhost:8000/docs`
