@@ -1,5 +1,3 @@
-import { Calendar } from "@/components/ui/calendar";
-
 export default function Index() {
 
   return (
@@ -44,10 +42,10 @@ export default function Index() {
             <h2 className="text-lg font-semibold mb-4 text-slate-700">
               Aperçu du calendrier
             </h2>
-            <Calendar
+            {/*<Calendar
               mode="single"
               className="rounded-md border bg-white"
-            />
+            />*/}
             <div className="mt-6">
               <a
                 href="/app"
