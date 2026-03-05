@@ -1,1 +1,1 @@
-export type statut = "En cours" | "Terminée"
+export type statut = "in_progress" | "completed" | "waiting"
