@@ -1,7 +1,10 @@
 import { iconsManager } from "@/lib/icons-manager"
+import { cn } from "@/lib/utils";
 import type { ExtendedUserInfo } from "@/types/extended-user-info"
+import { useState } from "react"
 
 export default function HeaderApp({userInfo}:{userInfo:ExtendedUserInfo | null}) {
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
 
     return (
         <header className=" w-full px-6 py-6 ml-6 flex items-center justify-between">
@@ -9,7 +12,16 @@ export default function HeaderApp({userInfo}:{userInfo:ExtendedUserInfo | null})
                 Agendai<span className="text-blue-600">.</span>
             </div>
         <div className="flex items-center justify-center gap-2 mr-11">
-            <button className=" p-2 border-2 border-black rounded-4xl">
+            <button
+                className={cn(
+                        "p-2 border-2 rounded-4xl transition-all duration-200", 
+                        openMenu 
+                            ? "bg-blue-600 border-blue-600 text-white" 
+                            : "border-black bg-transparent text-black" 
+                    )}
+                
+                onClick={() => setOpenMenu(!openMenu)}
+            >
                 <iconsManager.usrIcon/>
             </button>
             
