@@ -6,6 +6,7 @@ import type { KeycloakProfile } from 'keycloak-js';
 import type { ExtendedUserInfo } from './types/extended-user-info.ts';
 import FooterApp from './components/footer-app.tsx';
 import { Calendar } from './components/ui/calendar.tsx';
+import MenuOrganisation from './components/menu/menu-orga.tsx';
 
 
 
@@ -28,21 +29,26 @@ useEffect(() => {
 
 //quand la date change
 useEffect( ()=> {
-  alert(date)
+  console.log(date)
 },[date])
 
   return(
     <>
       <HeaderApp userInfo={userInfo}/>
 
-      <main className='ml-10 mr-10'>
+      <main className='flex gap-2  ml-10 mr-10 mb-20'>
         {/* Calendrier */}
         <Calendar
           mode='single'
           selected={date}
           onSelect={setDate}
-          className='border'
+          className='border flex-1/2'
         />
+
+        {/* Menu d'organisation */}
+        <div className='flex-1/2'>
+          <MenuOrganisation/>
+        </div>
       </main>
       <FooterApp/>
     </>
