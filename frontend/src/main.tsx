@@ -5,28 +5,22 @@ import App from './App.tsx';
 import NotFound from './pages/notFound.tsx';
 import Index from './pages/index.tsx';
 import keycloak from './keycloak.ts';
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import ProtectedRoute from './components/keycloack/protected-routes.tsx';
 
-keycloak.init({  
-  onLoad: 'login-required', 
-  checkLoginIframe: false 
-}).then((authenticated) => {
-  
-  if (authenticated) {
-    console.log("Utilisateur connecté ! Token:", keycloak.token);
-  } else {
-    console.log("Utilisateur non connecté.");
-  }
 
   createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Index/>}/>
-        <Route path='/app' element={<App/>}/>
-        <Route path='*' element={<NotFound/>}/>
-      </Routes>
-    </BrowserRouter>
-  );
+    <ReactKeycloakProvider 
+      authClient={keycloak}
+      initOptions={{onLoad:'check-sso', checkLoginIframe: false }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Index/>}/>
+            <Route path='/app' element={<ProtectedRoute><App/></ProtectedRoute>}/>
 
-}).catch((error) => {
-  console.error("Échec de l'initialisation de Keycloak", error);
-});
+          <Route path='*' element={<NotFound/>}/>
+        </Routes>
+      </BrowserRouter>
+    </ReactKeycloakProvider>
+  );
