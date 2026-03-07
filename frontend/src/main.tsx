@@ -8,7 +8,6 @@ import keycloak from './keycloak.ts';
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import ProtectedRoute from './components/keycloack/protected-routes.tsx';
 
-
   createRoot(document.getElementById('root')!).render(
     <ReactKeycloakProvider 
       authClient={keycloak}
