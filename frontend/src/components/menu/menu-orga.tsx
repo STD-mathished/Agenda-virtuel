@@ -1,18 +1,30 @@
-import { List, Star, SlidersHorizontal } from "lucide-react";
+import { List, Star, CirclePlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFilterStore } from "@/store/useFilterStore";
-
-
+import { useTaskViewStore } from "@/store/useTaskViewStore";
+import type { FilterType } from "@/types/filter-type";
 
 export default function MenuOrganisation() {
+  const { setView } = useTaskViewStore();
   const { activeFilter, setActiveFilter } = useFilterStore();
+
+
+  const handleNavigation = (filter: FilterType) => {
+    setActiveFilter(filter);
+    
+    if (filter === 'create') {
+      setView('create');
+    } else {
+      setView('list');
+    }
+  };
 
   return (
     <nav className="flex items-center gap-6 border-b border-gray-100 pb-4 mb-6">
       
       {/* Bouton : Toutes les tâches */}
       <button 
-        onClick={() => setActiveFilter('all')}
+        onClick={() => handleNavigation('all')}
         className={cn(
           "flex items-center gap-2 text-sm font-medium transition-all pb-4 -mb-[18px] border-b-2",
           activeFilter === 'all' 
@@ -26,7 +38,7 @@ export default function MenuOrganisation() {
 
       {/* Bouton : Prioritaires */}
       <button 
-        onClick={() => setActiveFilter('priority')}
+        onClick={() => handleNavigation('priority')}
         className={cn(
           "flex items-center gap-2 text-sm font-medium transition-all pb-4 -mb-[18px] border-b-2",
           activeFilter === 'priority' 
@@ -38,18 +50,18 @@ export default function MenuOrganisation() {
         Tâches prioritaires
       </button>
 
-      {/* Bouton : Filtrer */}
+      {/* Bouton : Créer */}
       <button 
-        onClick={() => setActiveFilter('filter')}
+        onClick={() => handleNavigation('create')}
         className={cn(
           "flex items-center gap-2 text-sm font-medium transition-all pb-4 -mb-[18px] border-b-2 ml-auto",
-          activeFilter === 'filter' 
+          activeFilter === 'create' 
             ? "text-blue-600 border-blue-600" 
             : "text-gray-500 border-transparent hover:text-gray-700"
         )}
       >
-        <SlidersHorizontal size={18} />
-        Filtrer
+        <CirclePlus size={18} />
+        Créer
       </button>
       
     </nav>

@@ -7,6 +7,7 @@ import type { ExtendedUserInfo } from './types/extended-user-info.ts';
 import FooterApp from './components/footer-app.tsx';
 import { Calendar } from './components/ui/calendar.tsx';
 import MenuOrganisation from './components/menu/menu-orga.tsx';
+import TaskWrapper from './components/wrapper/task-wrapper.tsx';
 
 
 
@@ -46,9 +47,15 @@ useEffect( ()=> {
         />
 
         {/* Menu d'organisation */}
-        <div className='flex-1/2'>
-          <MenuOrganisation/>
+        <div className='flex-1/2 flex flex-col'> 
+        <MenuOrganisation/>
+        
+        <div className='flex-1'> 
+          <TaskWrapper date={date}/>
         </div>
+
+      </div>
+
       </main>
       <FooterApp/>
     </>

@@ -1,4 +1,4 @@
-export type FilterType = 'all' | 'priority' | 'filter';
+export type FilterType = 'all' | 'priority' | 'create';
 
 export interface FilterState {
   activeFilter: FilterType;
