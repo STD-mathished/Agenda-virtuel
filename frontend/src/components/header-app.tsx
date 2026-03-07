@@ -2,6 +2,7 @@ import { iconsManager } from "@/lib/icons-manager"
 import { cn } from "@/lib/utils";
 import type { ExtendedUserInfo } from "@/types/extended-user-info"
 import { useState } from "react"
+import HeaderMenu from "./menu/header-menu";
 
 export default function HeaderApp({userInfo}:{userInfo:ExtendedUserInfo | null}) {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -32,6 +33,9 @@ export default function HeaderApp({userInfo}:{userInfo:ExtendedUserInfo | null})
             {!userInfo && (
                 <p>No username to display</p>
             )}
+
+            {/* Afficher le menu */}
+            {openMenu && <HeaderMenu />}
         </div>
       </header>
     )
