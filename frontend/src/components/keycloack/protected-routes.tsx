@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
 
   if (!keycloak.authenticated) {
     keycloak.login();
-    return <div>Redirection vers la page de connexion...</div>;
+    return <div>Redirection vers la page de connexion...</div>; 
   }
 
   return children;

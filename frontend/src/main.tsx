@@ -17,8 +17,11 @@ import ProtectedRoute from './components/keycloack/protected-routes.tsx';
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Index/>}/>
-            <Route path='/app' element={<ProtectedRoute><App/></ProtectedRoute>}/>
-
+          <Route path='/app' element={
+            <ProtectedRoute>
+              <App/>
+            </ProtectedRoute>}
+          />
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
