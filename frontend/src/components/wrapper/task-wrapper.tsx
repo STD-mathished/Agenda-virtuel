@@ -1,7 +1,7 @@
 import { useTaskViewStore } from "@/store/useTaskViewStore";
 import TaskList from "../task/task-list";
 import TaskEdit from "../task/task-edit";
-import TaskCreate from "../task/task-create";
+import CreateMenu from "../create/create-menu";
 export default function TaskWrapper({ date }: { date: Date | undefined }) {
   const { currentView, selectedTaskId } = useTaskViewStore();
 
@@ -9,7 +9,7 @@ export default function TaskWrapper({ date }: { date: Date | undefined }) {
   const views = {
     list: <TaskList date={date} />,
     edit: <TaskEdit taskId={selectedTaskId} />,
-    create: <TaskCreate date={date} />,
+    create: <CreateMenu date={date} />,
   };
 
   return (
