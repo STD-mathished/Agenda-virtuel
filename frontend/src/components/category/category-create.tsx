@@ -26,11 +26,9 @@ export default function CategoryCreate({ onClose }: CategoryCreateProps) {
         setError(null);
 
         try {
-            // Appel à la classe API avec le BASE_URL configuré
             await CategoryAPI.create(token, name.trim());
             onClose(); 
         } catch (err: unknown) {
-            // Gestion d'erreur sans 'any'
             if (err instanceof Error) {
                 setError(err.message);
             } else {
