@@ -16,6 +16,7 @@ class TaskCreate(TaskBase):
 
 class TaskOut(TaskBase):
     id: UUID
+    createur_id: UUID 
     date_creation: datetime
     categories: List[CategorySchema] = []
 
