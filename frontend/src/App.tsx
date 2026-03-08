@@ -22,6 +22,7 @@ useEffect(() => {
     console.log("App initialisation, keycloak instance:", keycloak);
     keycloak.loadUserInfo().then((user) => {
       console.log("User info fetched:", user);
+      console.log("Token pour les tests :", keycloak.token);
       setUserInfo(user as KeycloakProfile);
     }).catch(err => {
       console.error("Erreur lors du chargement des infos utilisateur", err);

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api.endpoints import tasks, categories
+from backend.api.endpoints import tasks, category
 
 app = FastAPI(title="Agendai API")
 
@@ -13,4 +13,4 @@ app.add_middleware(
 )
 
 app.include_router(tasks.router)
-app.include_router(categories.router)
+app.include_router(category.router)

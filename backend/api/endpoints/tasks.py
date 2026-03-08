@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import Date, cast
 from datetime import date as dt_date
@@ -17,12 +17,22 @@ router = APIRouter(
 )
 
 @router.get("/", response_model=List[TaskOut])
-async def get_tasks(db: Session = Depends(get_db)):
-    return db.query(Task).all()
+async def get_tasks(
+    db: Session = Depends(get_db),
+    current_user_id: UUID = Depends(get_current_user_id) 
+):
+    return db.query(Task).filter(Task.createur_id == current_user_id).all()
 
 @router.get("/{jour}", response_model=List[TaskOut])
-async def get_task_by_date(jour: dt_date, db: Session = Depends(get_db)):
-    return db.query(Task).filter(cast(Task.date_creation, Date) == jour).all()
+async def get_task_by_date(
+    jour: dt_date, 
+    db: Session = Depends(get_db),
+    current_user_id: UUID = Depends(get_current_user_id) 
+):
+    return db.query(Task).filter(
+        cast(Task.date_creation, Date) == jour,
+        Task.createur_id == current_user_id
+    ).all()
 
 @router.post("/", response_model=TaskOut, status_code=status.HTTP_201_CREATED)
 def create_task(
@@ -36,10 +46,18 @@ def create_task(
     new_task = Task(**data, createur_id=current_user_id)
 
     if category_ids:
-        categories = db.query(Category).filter(Category.id.in_(category_ids)).all()
+        categories = db.query(Category).filter(
+            Category.id.in_(category_ids),
+            Category.createur_id == current_user_id
+        ).all()
         new_task.categories = categories
 
     db.add(new_task)
-    db.commit()
+    try:
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=400, detail=str(e))
+        
     db.refresh(new_task)
     return new_task
