@@ -63,7 +63,7 @@ export default function CreateMenu({ date }: { date: Date | undefined }) {
                 )}
 
                 {choice === 'category' && (
-                    <CategoryCreate/>
+                    <CategoryCreate onClose={handleClose}/>
                 )}
             </div>
         </div>
