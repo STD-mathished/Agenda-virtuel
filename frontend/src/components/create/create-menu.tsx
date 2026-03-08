@@ -1,10 +1,13 @@
 import type { CreateChoice } from "@/types/create-menu"
 import { useState } from "react"
-import { ClipboardList, Tag, Calendar, Sparkles, Palette } from "lucide-react"
+import { ClipboardList, Tag, Calendar } from "lucide-react"
+import TaskCreate from "../task/task-create"
+import CategoryCreate from "../category/category-create"
 
 export default function CreateMenu({ date }: { date: Date | undefined }) {
     const [choice, setChoice] = useState<CreateChoice>(undefined)
 
+    const handleClose = () => setChoice(undefined)
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl border border-slate-100">
             <h2 className="text-2xl font-extrabold text-slate-800 text-center mb-6">
@@ -56,21 +59,11 @@ export default function CreateMenu({ date }: { date: Date | undefined }) {
                 )}
 
                 {choice === 'task' && (
-                    <div className="flex flex-col items-center gap-2 animate-in fade-in zoom-in duration-300">
-                        <div className="p-3 bg-indigo-100 rounded-full">
-                            <Sparkles className="w-6 h-6 text-indigo-600" />
-                        </div>
-                        <p className="text-lg font-bold text-indigo-600 uppercase tracking-wider">Hello Task</p>
-                    </div>
+                    <TaskCreate date={date} onClose={handleClose}/>
                 )}
 
                 {choice === 'category' && (
-                    <div className="flex flex-col items-center gap-2 animate-in fade-in zoom-in duration-300">
-                        <div className="p-3 bg-emerald-100 rounded-full">
-                            <Palette className="w-6 h-6 text-emerald-600" />
-                        </div>
-                        <p className="text-lg font-bold text-emerald-600 uppercase tracking-wider">Hello Category</p>
-                    </div>
+                    <CategoryCreate/>
                 )}
             </div>
         </div>
