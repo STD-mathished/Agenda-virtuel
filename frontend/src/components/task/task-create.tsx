@@ -2,7 +2,7 @@
 export default function TaskCreate({date}:{date:Date|undefined}) {
     return(
         <div>
-            <h1>créer une tâche</h1>
+            <h2>Souhaitez vous créer une tâche ou une catégorie?</h2>
             {date && (
                 <p>Date sélectionnée : {date.toLocaleDateString('fr-FR')}</p>
             )}

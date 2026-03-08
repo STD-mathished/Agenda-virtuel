@@ -38,20 +38,20 @@ useEffect( ()=> {
     <>
       <HeaderApp userInfo={userInfo}/>
 
-      <main className='flex gap-2  ml-10 mr-10 mb-20'>
+      <main className='flex gap-2 p-10 pb-20 h-screen overflow-hidden'>
         {/* Calendrier */}
         <Calendar
           mode='single'
           selected={date}
           onSelect={setDate}
-          className='border flex-1/2'
+          className='border flex-1'
         />
 
         {/* Menu d'organisation */}
-        <div className='flex-1/2 flex flex-col'> 
+        <div className='flex-1 flex flex-col'> 
         <MenuOrganisation/>
         
-        <div className='flex-1'> 
+        <div className='flex-1 overflow-auto'> 
           <TaskWrapper date={date}/>
         </div>
 
