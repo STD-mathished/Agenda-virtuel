@@ -4,10 +4,11 @@ from uuid import UUID
 class CategoryBase(BaseModel):
     nom: str
 
-class CategoryCreate(CategoryBase):
+class CategoryCreate(CategoryBase): 
     pass  
 
 class CategorySchema(CategoryBase):
     id: UUID
+    createur_id: UUID 
     
     model_config = ConfigDict(from_attributes=True)
