@@ -22,4 +22,5 @@ class Task(Base):
         CheckConstraint('priorite BETWEEN 1 AND 3', name='check_priorite_range'),
     )
 
+    # Relation vers les catégories
     categories = relationship("Category", secondary=task_category_association, back_populates="tasks")
