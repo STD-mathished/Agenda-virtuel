@@ -2,7 +2,6 @@ from sqlalchemy import Table, Column, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from backend.db.scripts.db import Base
 
-
 task_category_association = Table(
     "taches_categories", 
     Base.metadata,
