@@ -1,113 +1,78 @@
 import { useState } from "react";
-import { Type, AlignLeft, Flag, CalendarCheck, Send, X } from "lucide-react";
+import { Tag, Send, AlertCircle } from "lucide-react";
+import { useKeycloak } from "@react-keycloak/web"; // 🔑 Importe ton hook d'auth
+import { CategoryAPI } from "@/services/category.service"; // 🛠️ Importe ton service
 
-interface TaskCreateProps {
-    date: Date | undefined;
-    onClose: () => void; 
+interface CategoryCreateProps {
+    onClose: () => void;
 }
 
-export default function TaskCreate({ date, onClose }: TaskCreateProps) {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [priority, setPriority] = useState(2);
+export default function CategoryCreate({ onClose }: CategoryCreateProps) {
+    const { keycloak } = useKeycloak(); 
+    const [name, setName] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
+        
+        const token = keycloak.token;
+        if (!token) {
+            setError("Vous n'êtes pas authentifié.");
+            return;
+        }
+
         setIsSubmitting(true);
-        setTimeout(() => {
+        setError(null);
+
+        try {
+            await CategoryAPI.create(token, name.trim());
+            onClose();
+        } catch (err: any) {
+            setError(err.message || "Une erreur est survenue lors de la création.");
+        } finally {
             setIsSubmitting(false);
-            onClose(); 
-        }, 1000);
+        }
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-slate-900/40 animate-in fade-in duration-300">
-            
-            {/* Modale */}
-            <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 overflow-hidden animate-in zoom-in-95 duration-300">
-                
-                {/* Close btn*/}
-                <button 
-                    onClick={onClose}
-                    className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
-                >
-                    <X className="w-5 h-5" />
-                </button>
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-slate-900/40"
+            onClick={onClose}
+        >
+            <div 
+                className="relative w-full max-w-md bg-white rounded-3xl p-8"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* ... (Header et bouton X inchangés) */}
 
-                {/* Header */}
-                <div className="flex flex-col items-center gap-2 mb-8">
-                    <h3 className="text-xl font-black text-slate-800 uppercase tracking-tight">
-                        Nouvelle Tâche
-                    </h3>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Titre */}
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-slate-400 flex items-center gap-2 ml-1 tracking-widest uppercase">
-                            <Type className="w-3 h-3" /> Titre de la tâche
+                        <label className="text-[10px] font-black text-slate-400 flex items-center gap-2 uppercase">
+                            <Tag className="w-3 h-3" /> Nom de la catégorie
                         </label>
                         <input
                             required
-                            autoFocus
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Ex: Acheter du pain..."
-                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 focus:bg-white outline-none transition-all text-slate-700 font-medium"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-emerald-500 outline-none"
                         />
                     </div>
 
-                    {/* Description */}
-                    <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-slate-400 flex items-center gap-2 ml-1 tracking-widest uppercase">
-                            <AlignLeft className="w-3 h-3" /> Description détaillée
-                        </label>
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Optionnel..."
-                            rows={3}
-                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 focus:bg-white outline-none transition-all resize-none text-slate-700"
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        {/* Priorité */}
-                        <div className="space-y-1.5">
-                            <label className="text-[10px] font-black text-slate-400 flex items-center gap-2 ml-1 tracking-widest uppercase">
-                                <Flag className="w-3 h-3" /> Priorité
-                            </label>
-                            <select
-                                value={priority}
-                                onChange={(e) => setPriority(Number(e.target.value))}
-                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 outline-none font-bold text-slate-600"
-                            >
-                                <option value={1}>Faible</option>
-                                <option value={2}>Normale</option>
-                                <option value={3}>Haute</option>
-                            </select>
+                    {error && (
+                        <div className="flex items-center gap-2 p-3 bg-red-50 text-red-600 text-xs font-bold rounded-xl border border-red-100 animate-in shake duration-300">
+                            <AlertCircle className="w-4 h-4" />
+                            {error}
                         </div>
+                    )}
 
-                        {/* Date */}
-                        <div className="space-y-1.5">
-                            <label className="text-[10px] font-black text-slate-400 flex items-center gap-2 ml-1 tracking-widest uppercase">
-                                <CalendarCheck className="w-3 h-3" /> Échéance
-                            </label>
-                            <div className="w-full p-4 bg-indigo-50 text-indigo-700 rounded-2xl font-bold border-2 border-indigo-100 text-center">
-                                {date ? date.toLocaleDateString('fr-FR') : "Non définie"}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Bouton d'action */}
                     <button
                         type="submit"
-                        disabled={isSubmitting}
-                        className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-xl shadow-indigo-200 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 mt-4"
+                        disabled={isSubmitting || !name.trim()}
+                        className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl disabled:opacity-50 transition-all flex items-center justify-center gap-3"
                     >
-                        {isSubmitting ? "Création..." : <><Send className="w-5 h-5" /> Enregistrer la tâche</>}
+                        {isSubmitting ? "Création en cours..." : <><Send className="w-5 h-5" /> Créer la catégorie</>}
                     </button>
                 </form>
             </div>
